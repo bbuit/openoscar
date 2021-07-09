@@ -78,7 +78,8 @@
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/oscar-tag.tld" prefix="oscar" %>
-<%@ taglib uri="/WEB-INF/security.tld" prefix="security" %>
+
+
 
 <jsp:useBean id="providerBean" class="java.util.Properties" scope="session"/>
 <jsp:useBean id="as" class="oscar.appt.ApptStatusData"/>
@@ -127,10 +128,10 @@
     boolean authed = true;
 %>
 
-<security:oscarSec roleName="<%=roleName$%>" objectName="_appointment,_day" rights="r" reverse="<%=true%>">
-    <%authed = false; %>
-    <%response.sendRedirect(request.getContextPath() + "/securityError.jsp?type=_appointment");%>
-</security:oscarSec>
+<%--<security:oscarSec roleName="<%=roleName$%>" objectName="_appointment,_day" rights="r" reverse="<%=true%>">--%>
+<%--    <%authed = false; %>--%>
+<%--    <%response.sendRedirect(request.getContextPath() + "/securityError.jsp?type=_appointment");%>--%>
+<%--</security:oscarSec>--%>
 
 <%
     if (!authed) {
@@ -138,16 +139,16 @@
     }
 %>
 
-<security:oscarSec objectName="_site_access_privacy" roleName="<%=roleName$%>" rights="r" reverse="false">
-    <%
-        isSiteAccessPrivacy = true;
-    %>
-</security:oscarSec>
-<security:oscarSec objectName="_team_access_privacy" roleName="<%=roleName$%>" rights="r" reverse="false">
-    <%
-        isTeamAccessPrivacy = true;
-    %>
-</security:oscarSec>
+<%--<security:oscarSec objectName="_site_access_privacy" roleName="<%=roleName$%>" rights="r" reverse="false">--%>
+<%--    <%--%>
+<%--        isSiteAccessPrivacy = true;--%>
+<%--    %>--%>
+<%--</security:oscarSec>--%>
+<%--<security:oscarSec objectName="_team_access_privacy" roleName="<%=roleName$%>" rights="r" reverse="false">--%>
+<%--    <%--%>
+<%--        isTeamAccessPrivacy = true;--%>
+<%--    %>--%>
+<%--</security:oscarSec>--%>
 
 <%!
     //multisite starts =====================
@@ -196,11 +197,11 @@
 //    long loadPage = System.currentTimeMillis();
     if (session.getAttribute("userrole") == null) response.sendRedirect("../logout.jsp");
 %>
-<security:oscarSec roleName="<%=roleName$%>" objectName="_appointment" rights="r" reverse="<%=true%>">
-    <%
-        response.sendRedirect("../logout.jsp");
-    %>
-</security:oscarSec>
+<%--<security:oscarSec roleName="<%=roleName$%>" objectName="_appointment" rights="r" reverse="<%=true%>">--%>
+<%--    <%--%>
+<%--        response.sendRedirect("../logout.jsp");--%>
+<%--    %>--%>
+<%--</security:oscarSec>--%>
 
 <!-- caisi infirmary view extension add -->
 <caisi:isModuleLoad moduleName="caisi">
@@ -595,11 +596,11 @@
     <%
         boolean isTeamScheduleOnly = false;
     %>
-    <security:oscarSec roleName="<%=roleName$%>" objectName="_team_schedule_only" rights="r" reverse="false">
-        <%
-            isTeamScheduleOnly = true;
-        %>
-    </security:oscarSec>
+<%--    <security:oscarSec roleName="<%=roleName$%>" objectName="_team_schedule_only" rights="r" reverse="false">--%>
+<%--        <%--%>
+<%--            isTeamScheduleOnly = true;--%>
+<%--        %>--%>
+<%--    </security:oscarSec>--%>
     <%
         int numProvider = 0, numAvailProvider = 0;
         String[] curProvider_no;
@@ -805,17 +806,17 @@
                                 key="global.caseload"/></a>
                     </li>
 
-                    <caisi:isModuleLoad moduleName="TORONTO_RFQ" reverse="true">
-                        <security:oscarSec roleName="<%=roleName$%>" objectName="_resource" rights="r">
-                            <li>
-                                <a href="#" ONCLICK="popupPage2('<%=resourcebaseurl%>');return false;"
-                                   title="<bean:message key="provider.appointmentProviderAdminDay.viewResources"/>"
-                                   onmouseover="window.status='<bean:message
-                                           key="provider.appointmentProviderAdminDay.viewResources"/>';return true"><bean:message
-                                        key="oscarEncounter.Index.clinicalResources"/></a>
-                            </li>
-                        </security:oscarSec>
-                    </caisi:isModuleLoad>
+<%--                    <caisi:isModuleLoad moduleName="TORONTO_RFQ" reverse="true">--%>
+<%--                        <security:oscarSec roleName="<%=roleName$%>" objectName="_resource" rights="r">--%>
+<%--                            <li>--%>
+<%--                                <a href="#" ONCLICK="popupPage2('<%=resourcebaseurl%>');return false;"--%>
+<%--                                   title="<bean:message key="provider.appointmentProviderAdminDay.viewResources"/>"--%>
+<%--                                   onmouseover="window.status='<bean:message--%>
+<%--                                           key="provider.appointmentProviderAdminDay.viewResources"/>';return true"><bean:message--%>
+<%--                                        key="oscarEncounter.Index.clinicalResources"/></a>--%>
+<%--                            </li>--%>
+<%--                        </security:oscarSec>--%>
+<%--                    </caisi:isModuleLoad>--%>
 
                     <%
                         if (isMobileOptimized) {
@@ -826,38 +827,38 @@
                         <ul id="navlistcontents" style="display:none;">
                             <% } %>
 
-                            <security:oscarSec roleName="<%=roleName$%>" objectName="_search" rights="r">
-                                <li id="search">
-                                    <caisi:isModuleLoad moduleName="caisi">
-                                        <%
-                                            String caisiSearch = oscarVariables.getProperty("caisi.search.workflow", "true");
-                                            if ("true".equalsIgnoreCase(caisiSearch)) {
-                                        %>
-                                        <a HREF="../PMmodule/ClientSearch2.do"
-                                           TITLE='<bean:message key="global.searchPatientRecords"/>'
-                                           OnMouseOver="window.status='<bean:message key="global.searchPatientRecords"/>' ; return true"><bean:message
-                                                key="provider.appointmentProviderAdminDay.search"/></a>
+<%--                            <security:oscarSec roleName="<%=roleName$%>" objectName="_search" rights="r">--%>
+<%--                                <li id="search">--%>
+<%--                                    <caisi:isModuleLoad moduleName="caisi">--%>
+<%--                                        <%--%>
+<%--                                            String caisiSearch = oscarVariables.getProperty("caisi.search.workflow", "true");--%>
+<%--                                            if ("true".equalsIgnoreCase(caisiSearch)) {--%>
+<%--                                        %>--%>
+<%--                                        <a HREF="../PMmodule/ClientSearch2.do"--%>
+<%--                                           TITLE='<bean:message key="global.searchPatientRecords"/>'--%>
+<%--                                           OnMouseOver="window.status='<bean:message key="global.searchPatientRecords"/>' ; return true"><bean:message--%>
+<%--                                                key="provider.appointmentProviderAdminDay.search"/></a>--%>
 
-                                        <%
-                                        } else {
-                                        %>
+<%--                                        <%--%>
+<%--                                        } else {--%>
+<%--                                        %>--%>
+<%--                                        <a HREF="#" ONCLICK="popupPage2('../demographic/search.jsp');return false;"--%>
+<%--                                           TITLE='<bean:message key="global.searchPatientRecords"/>'--%>
+<%--                                           OnMouseOver="window.status='<bean:message key="global.searchPatientRecords"/>' ; return true"><bean:message--%>
+<%--                                                key="provider.appointmentProviderAdminDay.search"/></a>--%>
+<%--                                        <% } %>--%>
+<%--                                    </caisi:isModuleLoad>--%>
+<%--                                    <caisi:isModuleLoad moduleName="caisi" reverse="true">--%>
                                         <a HREF="#" ONCLICK="popupPage2('../demographic/search.jsp');return false;"
                                            TITLE='<bean:message key="global.searchPatientRecords"/>'
                                            OnMouseOver="window.status='<bean:message key="global.searchPatientRecords"/>' ; return true"><bean:message
                                                 key="provider.appointmentProviderAdminDay.search"/></a>
-                                        <% } %>
-                                    </caisi:isModuleLoad>
-                                    <caisi:isModuleLoad moduleName="caisi" reverse="true">
-                                        <a HREF="#" ONCLICK="popupPage2('../demographic/search.jsp');return false;"
-                                           TITLE='<bean:message key="global.searchPatientRecords"/>'
-                                           OnMouseOver="window.status='<bean:message key="global.searchPatientRecords"/>' ; return true"><bean:message
-                                                key="provider.appointmentProviderAdminDay.search"/></a>
-                                    </caisi:isModuleLoad>
-                                </li>
-                            </security:oscarSec>
+<%--                                    </caisi:isModuleLoad>--%>
+<%--                                </li>--%>
+<%--                            </security:oscarSec>--%>
 
                             <caisi:isModuleLoad moduleName="TORONTO_RFQ" reverse="true">
-                                <security:oscarSec roleName="<%=roleName$%>" objectName="_report" rights="r">
+<%--                                <security:oscarSec roleName="<%=roleName$%>" objectName="_report" rights="r">--%>
                                     <li>
                                         <a HREF="#"
                                            ONCLICK="popupPage2('../report/reportindex.jsp','reportPage');return false;"
@@ -865,10 +866,10 @@
                                            OnMouseOver="window.status='<bean:message key="global.genReport"/>' ; return true"><bean:message
                                                 key="global.report"/></a>
                                     </li>
-                                </security:oscarSec>
+<%--                                </security:oscarSec>--%>
                                 <oscar:oscarPropertiesCheck property="NOT_FOR_CAISI" value="no" defaultVal="true">
 
-                                    <security:oscarSec roleName="<%=roleName$%>" objectName="_billing" rights="r">
+<%--                                    <security:oscarSec roleName="<%=roleName$%>" objectName="_billing" rights="r">--%>
                                         <li>
                                             <a HREF="#"
                                                ONCLICK="popupPage2('../billing/CA/<%=prov%>/billingReportCenter.jsp?displaymode=billreport&providerview=<%=curUser_no%>');return false;"
@@ -876,10 +877,9 @@
                                                onMouseOver="window.status='<bean:message key="global.genBillReport"/>';return true"><bean:message
                                                     key="global.billing"/></a>
                                         </li>
-                                    </security:oscarSec>
+<%--                                    </security:oscarSec>--%>
 
-                                    <security:oscarSec roleName="<%=roleName$%>" objectName="_appointment.doctorLink"
-                                                       rights="r">
+<%--                                    <security:oscarSec roleName="<%=roleName$%>" objectName="_appointment.doctorLink" rights="r">--%>
                                         <li>
                                             <a HREF="#"
                                                ONCLICK="popupInboxManager('../dms/inboxManage.do?method=prepareForIndexPage&providerNo=<%=curUser_no%>', 'Lab');return false;"
@@ -892,7 +892,7 @@
                                                    title='<bean:message key="provider.appointmentProviderAdminDay.viewLabReports"/>'>U</a>
                                             </oscar:newUnclaimedLab>
                                         </li>
-                                    </security:oscarSec>
+<%--                                    </security:oscarSec>--%>
                                 </oscar:oscarPropertiesCheck>
 
                             </caisi:isModuleLoad>
@@ -923,24 +923,24 @@
                             <%}%>
 
                             <caisi:isModuleLoad moduleName="TORONTO_RFQ" reverse="true">
-                                <security:oscarSec roleName="<%=roleName$%>" objectName="_msg" rights="r">
+<%--                                <security:oscarSec roleName="<%=roleName$%>" objectName="_msg" rights="r">--%>
                                     <li>
                                         <a HREF="#"
                                            ONCLICK="popupOscarRx(600,1024,'../oscarMessenger/DisplayMessages.do?providerNo=<%=curUser_no%>&userName=<%=URLEncoder.encode(loggedInInfo1.getLoggedInProvider().getFirstName()+" "+loggedInInfo1.getLoggedInProvider().getLastName())%>')"
                                            title="<bean:message key="global.messenger"/>">
                                             <span id="oscar_new_msg"><bean:message key="global.msg"/></span></a>
                                     </li>
-                                </security:oscarSec>
+<%--                                </security:oscarSec>--%>
                             </caisi:isModuleLoad>
                             <caisi:isModuleLoad moduleName="TORONTO_RFQ" reverse="true">
-                                <security:oscarSec roleName="<%=roleName$%>" objectName="_con" rights="r">
+<%--                                <security:oscarSec roleName="<%=roleName$%>" objectName="_con" rights="r">--%>
                                     <li id="con">
                                         <a HREF="#"
                                            ONCLICK="popupOscarRx(625,1024,'../oscarEncounter/IncomingConsultation.do?providerNo=<%=curUser_no%>&userName=<%=URLEncoder.encode(loggedInInfo1.getLoggedInProvider().getFirstName()+" "+loggedInInfo1.getLoggedInProvider().getLastName())%>')"
                                            title="<bean:message key="provider.appointmentProviderAdminDay.viewConReq"/>">
                                             <span id="oscar_aged_consults"><bean:message key="global.con"/></span></a>
                                     </li>
-                                </security:oscarSec>
+<%--                                </security:oscarSec>--%>
                             </caisi:isModuleLoad>
                             <%
                                 boolean hide_eConsult = OscarProperties.getInstance().isPropertyActive("hide_eConsult_link");
@@ -979,16 +979,16 @@
                                 <%--                            </li>--%>
                                 <%--                        </security:oscarSec>--%>
                             <caisi:isModuleLoad moduleName="TORONTO_RFQ" reverse="true">
-                                <security:oscarSec roleName="<%=roleName$%>" objectName="_edoc" rights="r">
+<%--                                <security:oscarSec roleName="<%=roleName$%>" objectName="_edoc" rights="r">--%>
                                     <li>
                                         <a HREF="#"
                                            onclick="popup('700', '1024', '../dms/documentReport.jsp?function=provider&functionid=<%=curUser_no%>&curUser=<%=curUser_no%>', 'edocView');"
                                            TITLE='<bean:message key="provider.appointmentProviderAdminDay.viewEdoc"/>'><bean:message
                                                 key="global.edoc"/></a>
                                     </li>
-                                </security:oscarSec>
+<%--                                </security:oscarSec>--%>
                             </caisi:isModuleLoad>
-                            <security:oscarSec roleName="<%=roleName$%>" objectName="_tickler" rights="r">
+<%--                            <security:oscarSec roleName="<%=roleName$%>" objectName="_tickler" rights="r">--%>
                                 <li>
                                         <%--                                <caisi:isModuleLoad moduleName="ticklerplus" reverse="true">--%>
                                     <a HREF="#"
@@ -1003,7 +1003,7 @@
                                         <%--                                    <span id="oscar_new_tickler"><bean:message key="global.btntickler"/></span></a>--%>
                                         <%--                                </caisi:isModuleLoad>--%>
                                 </li>
-                            </security:oscarSec>
+<%--                            </security:oscarSec>--%>
                             <oscar:oscarPropertiesCheck property="OSCAR_LEARNING" value="yes">
                                 <li>
                                     <a HREF="#"
@@ -1014,13 +1014,13 @@
                             </oscar:oscarPropertiesCheck>
 
                             <oscar:oscarPropertiesCheck property="referral_menu" value="yes">
-                                <security:oscarSec roleName="<%=roleName$%>" objectName="_admin,_admin.misc" rights="r">
+<%--                                <security:oscarSec roleName="<%=roleName$%>" objectName="_admin,_admin.misc" rights="r">--%>
                                     <li id="ref">
                                         <a href="#"
                                            onclick="popupPage(550,800,'../admin/ManageBillingReferral.do');return false;"><bean:message
                                                 key="global.manageReferrals"/></a>
                                     </li>
-                                </security:oscarSec>
+<%--                                </security:oscarSec>--%>
                             </oscar:oscarPropertiesCheck>
 
                             <oscar:oscarPropertiesCheck property="WORKFLOW" value="yes">
@@ -1032,19 +1032,19 @@
 
 
                             <caisi:isModuleLoad moduleName="TORONTO_RFQ" reverse="true">
-                                <security:oscarSec roleName="<%=roleName$%>"
-                                                   objectName="_admin,_admin.userAdmin,_admin.schedule,_admin.billing,_admin.resource,_admin.reporting,_admin.backup,_admin.messenger,_admin.eform,_admin.encounter,_admin.misc,_admin.fax"
-                                                   rights="r">
+<%--                                <security:oscarSec roleName="<%=roleName$%>"--%>
+<%--                                                   objectName="_admin,_admin.userAdmin,_admin.schedule,_admin.billing,_admin.resource,_admin.reporting,_admin.backup,_admin.messenger,_admin.eform,_admin.encounter,_admin.misc,_admin.fax"--%>
+<%--                                                   rights="r">--%>
 
                                     <li id="admin2">
                                         <a href="javascript:void(0)" id="admin-panel" TITLE='Administration Panel'
                                            onclick="newWindow('<%=request.getContextPath()%>/administration/','admin')">Administration</a>
                                     </li>
 
-                                </security:oscarSec>
+<%--                                </security:oscarSec>--%>
                             </caisi:isModuleLoad>
 
-                            <security:oscarSec roleName="<%=roleName$%>" objectName="_dashboardDisplay" rights="r">
+<%--                            <security:oscarSec roleName="<%=roleName$%>" objectName="_dashboardDisplay" rights="r">--%>
                                 <%
                                     DashboardManager dashboardManager = SpringUtils.getBean(DashboardManager.class);
                                     List<Dashboard> dashboards = dashboardManager.getActiveDashboards(loggedInInfo1);
@@ -1064,21 +1064,21 @@
                                                         </a>
                                                     </li>
                                                 </c:forEach>
-                                                <security:oscarSec roleName="<%=roleName$%>" objectName="_dashboardCommonLink" rights="r">
+<%--                                                <security:oscarSec roleName="<%=roleName$%>" objectName="_dashboardCommonLink" rights="r">--%>
                                                     <li>
                                                         <a href="javascript:void(0)"
                                                            onclick="newWindow('<%=request.getContextPath()%>/web/dashboard/display/sharedOutcomesDashboard.jsp','shared_dashboard')">
                                                             Common Provider Dashboard
                                                         </a>
                                                     </li>
-                                                </security:oscarSec>
+<%--                                                </security:oscarSec>--%>
                                             </ul>
                                         </div>
 
                                     </div>
                                 </li>
 
-                            </security:oscarSec>
+<%--                            </security:oscarSec>--%>
                             <li id="helpLink">
                                 <%if(resourcehelpHtml==""){ %>
                                 <a href="javascript:void(0)" onClick ="popupPage(600,750,'<%=resourcebaseurl%>')"><bean:message key="global.help"/></a>
@@ -1150,20 +1150,20 @@
                            onClick="popup(700,1024,'../scratch/index.jsp','scratch')"><span class="glyphicon glyphicon-list-alt"></span></a>
                     </li>
                     <li>
-                        <security:oscarSec roleName="<%=roleName$%>" objectName="_pref" rights="r">
+<%--                        <security:oscarSec roleName="<%=roleName$%>" objectName="_pref" rights="r">--%>
                         <a href="javascript:void(0)"
                            onClick="popupPage(715,680,'providerpreference.jsp?provider_no=<%=curUser_no%>')"
                            title='<bean:message key="provider.appointmentProviderAdminDay.msgSettings"/>'>
 
-                            </security:oscarSec>
+<%--                            </security:oscarSec>--%>
                             <span class="glyphicon glyphicon-user"></span>
 
                             <span>
                                 <c:out value='<%= userfirstname + " " + userlastname %>' />
                             </span>
-                            <security:oscarSec roleName="<%=roleName$%>" objectName="_pref" rights="r">
+<%--                            <security:oscarSec roleName="<%=roleName$%>" objectName="_pref" rights="r">--%>
                         </a>
-                        </security:oscarSec>
+<%--                        </security:oscarSec>--%>
                     </li>
                 </ul>
             </td>
@@ -1235,14 +1235,14 @@
                 </logic:notEqual>
 
                 <caisi:isModuleLoad moduleName="TORONTO_RFQ" reverse="true">
-                    <security:oscarSec roleName="<%=roleName$%>" objectName="_day" rights="r">
+<%--                    <security:oscarSec roleName="<%=roleName$%>" objectName="_day" rights="r">--%>
                         | <a class="rightButton top"
                              href="providercontrol.jsp?year=<%=curYear%>&month=<%=curMonth%>&day=<%=curDay%>&view=<%=view==0?"0":("1&curProvider="+request.getParameter("curProvider")+"&curProviderName="+URLEncoder.encode(request.getParameter("curProviderName"),"UTF-8") )%>&displaymode=day&dboperation=searchappointmentday"
                              TITLE='<bean:message key="provider.appointmentProviderAdminDay.viewDaySched"/>'
                              OnMouseOver="window.status='<bean:message key="provider.appointmentProviderAdminDay.viewDaySched"/>' ; return true"><bean:message
                             key="global.today"/></a>
-                    </security:oscarSec>
-                    <security:oscarSec roleName="<%=roleName$%>" objectName="_month" rights="r">
+<%--                    </security:oscarSec>--%>
+<%--                    <security:oscarSec roleName="<%=roleName$%>" objectName="_month" rights="r">--%>
 
                         | <a
                             href="providercontrol.jsp?year=<%=year%>&month=<%=month%>&day=1&view=<%=view==0?"0":("1&curProvider="+request.getParameter("curProvider")+"&curProviderName="+URLEncoder.encode(request.getParameter("curProviderName"),"UTF-8") )%>&displaymode=month&dboperation=searchappointmentmonth"
@@ -1250,7 +1250,7 @@
                             OnMouseOver="window.status='<bean:message key="provider.appointmentProviderAdminDay.viewMonthSched"/>' ; return true"><bean:message
                             key="global.month"/></a>
 
-                    </security:oscarSec>
+<%--                    </security:oscarSec>--%>
 
                 </caisi:isModuleLoad>
 
@@ -1417,8 +1417,8 @@
                                         <option value='.<bean:message key="global.default"/>'>.<bean:message key="global.default"/></option>
 
 
-                                        <security:oscarSec roleName="<%=roleName$%>" objectName="_team_schedule_only"
-                                                           rights="r" reverse="false">
+<%--                                        <security:oscarSec roleName="<%=roleName$%>" objectName="_team_schedule_only"--%>
+<%--                                                           rights="r" reverse="false">--%>
                                             <%
                                                 String provider_no = curUser_no;
                                                 for (Provider p : providerDao.getActiveProviders()) {
@@ -1433,9 +1433,9 @@
                                                 }
                                             %>
 
-                                        </security:oscarSec>
-                                        <security:oscarSec roleName="<%=roleName$%>" objectName="_team_schedule_only"
-                                                           rights="r" reverse="true">
+<%--                                        </security:oscarSec>--%>
+<%--                                        <security:oscarSec roleName="<%=roleName$%>" objectName="_team_schedule_only"--%>
+<%--                                                           rights="r" reverse="true">--%>
                                             <%
                                                 request.getSession().setAttribute("archiveView", "false");
                                                 for (MyGroup g : myGroupDao.searchmygroupno()) {
@@ -1463,7 +1463,7 @@
                                                     }
                                                 }
                                             %>
-                                        </security:oscarSec>
+<%--                                        </security:oscarSec>--%>
                                     </select>
 
                                 </logic:notEqual>
@@ -1501,16 +1501,16 @@
                             boolean bShowDocLink = false;
                             boolean bShowEncounterLink = false;
                         %>
-                        <security:oscarSec roleName="<%=roleName$%>" objectName="_appointment.doctorLink" rights="r">
+<%--                        <security:oscarSec roleName="<%=roleName$%>" objectName="_appointment.doctorLink" rights="r">--%>
                             <%
                                 bShowDocLink = true;
                             %>
-                        </security:oscarSec>
-                        <security:oscarSec roleName="<%=roleName$%>" objectName="_eChart" rights="r">
+<%--                        </security:oscarSec>--%>
+<%--                        <security:oscarSec roleName="<%=roleName$%>" objectName="_eChart" rights="r">--%>
                             <%
                                 bShowEncounterLink = true;
                             %>
-                        </security:oscarSec>
+<%--                        </security:oscarSec>--%>
 
                         <%
                             int hourCursor = 0, minuteCursor = 0, depth = everyMin; //depth is the period, e.g. 10,15,30,60min.
@@ -2005,9 +2005,9 @@
                                                             if (demographic_no == 0) {
                                                         %>
                                                         <!--  caisi  -->
-                                                        <security:oscarSec roleName="<%=roleName$%>"
-                                                                           objectName="_tickler"
-                                                                           rights="r">
+<%--                                                        <security:oscarSec roleName="<%=roleName$%>"--%>
+<%--                                                                           objectName="_tickler"--%>
+<%--                                                                           rights="r">--%>
                                                             <% if (tickler_no.compareTo("") != 0) {%>
                                                             <caisi:isModuleLoad moduleName="ticklerplus"
                                                                                 reverse="true">
@@ -2023,7 +2023,7 @@
                                                                     <span color="red">!</span></a>
                                                             </caisi:isModuleLoad>
                                                             <%} %>
-                                                        </security:oscarSec>
+<%--                                                        </security:oscarSec>--%>
 
                                                         <!--  alerts -->
                                                         <% if (OscarProperties.getInstance().getProperty("displayAlertsOnScheduleScreen", "").equals("true")) { %>
@@ -2164,15 +2164,15 @@
 
                                                             <% if(len==lenLimitedL || view!=0 || numAvailProvider==1 ) {%>
 
-                                                    <security:oscarSec roleName="<%=roleName$%>"
-                                                                       objectName="_eChart" rights="r">
+<%--                                                    <security:oscarSec roleName="<%=roleName$%>"--%>
+<%--                                                                       objectName="_eChart" rights="r">--%>
                                                     <oscar:oscarPropertiesCheck
                                                             property="eform_in_appointment" value="yes">
                                                     &#124;<b><a href="#"
                                                                 onclick="popupPage(500,1024,'../eform/efmformslistadd.jsp?parentAjaxId=eforms&demographic_no=<%=demographic_no%>&appointment=<%=appointment.getId()%>'); return false;"
                                                                 title="eForms">e</a></b>
                                                     </oscar:oscarPropertiesCheck>
-                                                    </security:oscarSec>
+<%--                                                    </security:oscarSec>--%>
 
                                                     <!-- doctor code block 3 -->
                                                             <% if(bShowEncounterLink && !isWeekView) { %>
@@ -2232,8 +2232,8 @@
 
                                                     <!-- billing code block -->
                                                             <% if (!isWeekView) { %>
-                                                    <security:oscarSec roleName="<%=roleName$%>"
-                                                                       objectName="_billing" rights="r">
+<%--                                                    <security:oscarSec roleName="<%=roleName$%>"--%>
+<%--                                                                       objectName="_billing" rights="r">--%>
                                                             <%
                                                                 if(status.indexOf('B')==-1)
                                                                 {
@@ -2268,12 +2268,12 @@
                                                                 %>
 
                                                     <!--/security:oscarSec-->
-                                                    </security:oscarSec>
+<%--                                                    </security:oscarSec>--%>
                                                             <% } %>
                                                     <!-- billing code block -->
-                                                    <security:oscarSec roleName="<%=roleName$%>"
-                                                                       objectName="_masterLink"
-                                                                       rights="r">
+<%--                                                    <security:oscarSec roleName="<%=roleName$%>"--%>
+<%--                                                                       objectName="_masterLink"--%>
+<%--                                                                       rights="r">--%>
 
                                                     &#124; <a class="masterBtn"
                                                               href="javascript:void(0)"
@@ -2281,14 +2281,14 @@
                                                               title="<bean:message key="provider.appointmentProviderAdminDay.msgMasterFile"/>"><bean:message
                                                         key="provider.appointmentProviderAdminDay.btnM"/></a>
 
-                                                    </security:oscarSec>
+<%--                                                    </security:oscarSec>--%>
                                                             <% if (!isWeekView) { %>
 
                                                     <!-- doctor code block 4 -->
 
-                                                    <security:oscarSec roleName="<%=roleName$%>"
-                                                                       objectName="_appointment.doctorLink"
-                                                                       rights="r">
+<%--                                                    <security:oscarSec roleName="<%=roleName$%>"--%>
+<%--                                                                       objectName="_appointment.doctorLink"--%>
+<%--                                                                       rights="r">--%>
                                                     &#124; <a href=#
                                                               onClick="popupWithApptNo(700,1027,'../oscarRx/choosePatient.do?providerNo=<%=curUser_no%>&demographicNo=<%=demographic_no%>','rx',<%=appointment.getId()%>)"
                                                               title="<bean:message key="global.prescriptions"/>"><bean:message
@@ -2325,7 +2325,7 @@
                                                             <c:out value='<%=(reason == null || reason.isEmpty()) ? "" : ((reasonCodeName != null && !reasonCodeName.isEmpty()) ? "- " : "") + reason%>' />
                                                         </i></strong>
                                                     </span>
-                                                    </security:oscarSec>
+<%--                                                    </security:oscarSec>--%>
 
                                                     <!-- add one link to caisi Program Management Module -->
                                                     <caisi:isModuleLoad moduleName="caisi">
